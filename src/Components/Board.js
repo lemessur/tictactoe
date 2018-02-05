@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Square from './Square.js';
+import Status from './Status.js';
 import Controls from './Controls.js';
 
-import { emptySquare, getEmptyBoard } from '../utils.js';
+import { emptySquare, boardSize, firstTurn, getEmptyBoard } from '../utils.js';
 
 export default class Board extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ export default class Board extends React.Component {
 
         this.state = {
             squares: getEmptyBoard(),
-            nextTurn: 0
+            nextTurn: 'x'
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -21,20 +22,14 @@ export default class Board extends React.Component {
     handleClick(index) {
         if (this.state.squares[index] === emptySquare) {
             let nextTurn = this.state.nextTurn;
-            let status = emptySquare;
-            if (nextTurn === 0) {
-                status = 'x';
-            } else if (nextTurn === 1) {
-                status = 'o';
-            }
-
-            nextTurn++;
-            if (nextTurn > 1) {
-                nextTurn = 0;
-            }
-
             let squares = this.state.squares;
-            squares[index] = status
+
+            squares[index] = nextTurn;
+            if (nextTurn === 'x') {
+                nextTurn = 'o';
+            } else {
+                nextTurn = 'x';
+            }
 
             this.setState(() => {
                 return {
@@ -49,9 +44,21 @@ export default class Board extends React.Component {
         this.setState(() => {
             return {
                 squares: getEmptyBoard(),
-                nextTurn: 0
+                nextTurn: firstTurn
             };
         });
+    }
+
+    // checkWin() {
+    //     // Check rows
+    //     let value = emptySquare;
+    //     for (y = 0; y < boardSize; ++y) {
+
+    //     }
+    // }
+
+    getStatus() {
+        return "Next turn: " + this.state.nextTurn;
     }
 
     render() {
@@ -66,6 +73,7 @@ export default class Board extends React.Component {
                     }
                 </div>
                 </form>
+                <Status text={this.getStatus()} />
                 <Controls handleReset={this.handleReset} />
             </div>
         );

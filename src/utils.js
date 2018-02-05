@@ -1,5 +1,6 @@
 const boardSize = 3;
 const emptySquare = 'emptySquare';
+const firstTurn = 'x';
 
 const getEmptyBoard = () => {
     return (new Array(boardSize * boardSize)).fill(emptySquare);
@@ -8,5 +9,6 @@ const getEmptyBoard = () => {
 module.exports = {
     boardSize,
     emptySquare,
-    getEmptyBoard,
+    firstTurn,
+    getEmptyBoard
 };

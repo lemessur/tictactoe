@@ -43,3 +43,9 @@ button.o {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 }
+
+.status {
+  resize: none;
+  width: 100%;
+  height: 50px;
+}
